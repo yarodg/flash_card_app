@@ -8,6 +8,7 @@ current_card = {}
 to_learn = {}
 
 
+# Load data
 try:
     data = pandas.read_csv("data/words_to_learn.csv")
 except FileNotFoundError:
@@ -17,6 +18,7 @@ else:
     to_learn = data.to_dict(orient="records")
 
 
+# Show next card
 def next_card():
     global current_card
     global flip_timer
@@ -28,12 +30,14 @@ def next_card():
     flip_timer = window.after(3000, func=flip_card)
 
 
+# Flip card after 3 sec.
 def flip_card():
     canvas.itemconfig(card_title, text="English", fill="white")
     canvas.itemconfig(card_word, text=current_card["English"], fill="white")
     canvas.itemconfig(card_background, image=card_back_img)
 
-# Save t
+
+# Save progress
 def is_known():
     to_learn.remove(current_card)
     data = pandas.DataFrame(to_learn)
